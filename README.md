@@ -1,58 +1,96 @@
-# secure-fair-voting-system
+# Secure Fair Voting System
 
-## Instructions:
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Fork the github repo into your personal Github account and take a clone into your local system.
-    
-    Guide to Forking Github Repo: https://docs.github.com/en/github-ae@latest/get-started/quickstart/fork-a-repo
-    
-    Guide for cloning Github Repo: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
-    
-2. Instantiate Virtual Studio code or any Development environment of your choice to complete the assessment in your local working directory.
-3. Save the files and push it into forked Github github repo.
-    
-    Guide to pushing code into Github Repo: https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github
-    
-4. Record a screencast video recording demonstrating the solution in your system and upload the video into the forked github repo.
-    
-    Guide to record screen in
-    
-    a) MAC: https://support.apple.com/en-in/102618
-    
-    b) Windows: https://www.microsoft.com/en-us/windows/learning-center/how-to-record-screen-windows-11
-    
-    c) Ubuntu: https://askubuntu.com/questions/4428/how-can-i-record-my-screen
-    
-5. Share the repository link into the Google Form: [https://forms.gle/2HbLP8GNiYArZFsj8](https://forms.gle/ufqFg2Kgk5C54Amn7)
+## Features
+- **Secure Voting**: Ensures that voters can cast their votes securely.
+- **User Authentication**: Voter registration and login functionality.
+- **Candidate Management**: Add, update, and delete candidates.
+- **Vote Counting**: Automated counting of votes with validation.
+- **Vote History**: Track whether a voter has voted or not.
+- **RESTful API**: Full API for integrating with frontend applications.
+
+## Installation
+
+To set up the Secure Fair Voting System on your local machine, follow these steps:
+
+### Prerequisites
+- Python 3.8 or higher
+- Django 5.1 or higher
+- Django REST Framework
+- Git
+
+### Step 1: Clone the Repository
+
+Open your terminal and run:
+
+```bash
+git clone https://github.com/your-username/secure-fair-voting-system.git
+cd secure-fair-voting-system
+
+Step 2: Create a Virtual Environment
+
+python -m venv venv
+
+Activate the virtual environment:
+
+venv\Scripts\activate
+
+Step 3: Install the required packages using pip:
+
+pip install -r requirements.txt
+
+Step 4: Set Up the Database
+Run the following commands to set up your database:
+
+python manage.py makemigrations
+python manage.py migrate
+
+Step 5: Create a Superuser
+To access the admin panel, create a superuser account:
+
+python manage.py createsuperuser
+
+Step 6: Run the Development Server
+Start the server using:
 
 
-## Problem Statement:
-![image](https://github.com/user-attachments/assets/9a727d61-ad06-47fb-9701-c6aab1ac9eda)
+python manage.py runserver
+You can now access the application at http://127.0.0.1:8000/.
 
-Often, when people participate in a poll, they don’t have just one preferred option; they may favor candidate A but also see merit in candidate B. What if we had a voting system designed to address this issue? Imagine if each person were given 10 votes to distribute among candidates according to their preferences. This could allow for a range of voting strategies, such as allocating all 10 votes to one candidate or splitting them, like giving 4 votes to one and 6 to another.
+Usage
+Navigate to the Admin Panel: Go to http://127.0.0.1:8000/admin/ and log in with the superuser account you created.
+Manage Voting Rooms: Add voting rooms, candidates, and voters.
+Voting Process: Voters can log in and cast their votes.
+API Endpoints
+Voting
+POST /api/vote/: Cast votes for candidates.
+Request Body:
 
-![image](https://github.com/user-attachments/assets/9e5cac3b-32a1-4025-a6da-43630baf59c0)
-
-### problems with the new voting system
-The voting system is intriguing and can capture the diverse preferences of voters, but it does have limitations and potential risks from bad actors. One concern arises if a bad actor manages to recruit about 40% of the voters. With such a significant bloc, it becomes nearly impossible for others to achieve a majority, especially since it's likely that the remaining participants will distribute their votes among various candidates.
-![image](https://github.com/user-attachments/assets/da36c897-bdfa-4648-bb2a-983f7c6b6f2b)
-
-### The Task
-Your task is to develop a robust voting algorithm for a system where each voter receives 10 votes to distribute among candidates as they wish. The challenge is to ensure fairness while minimizing the risk of strategic voting manipulation. Build a backend with the following essential endpoints:
-
-- Create a new voting room
-- Add a new candidate
-- Add a new voter
-- Allow voters to cast their votes for candidates
-- Check the results
-
-Our aim is to assess applicants' aptitude, innovative thinking, and their ability to comeup with new ways of solving problems, its an open ended assessment and candidate is free to innovate new ways. 
-
-### **Deliverables**:
-  - Backend APIs with required conditions (no specific Techstack)
-  - video showing multiple API calls right from creating a poll till declaring the winner
-  - Readme explaining steps of installation and features included
-  - Live hosted API (optional)
-
-**Push the source code along with a demo video of your solution into the forked github repo. Share the repo link in the google form: [https://forms.gle/2HbLP8GNiYArZFsj8](https://forms.gle/ufqFg2Kgk5C54Amn7)**
-
+json
+Copy code
+{
+    "voter": 1,  // ID of the voter
+    "votes": [
+        {
+            "candidate": 1,  // ID of the candidate
+            "votes_count": 6  // Number of votes for this candidate
+        },
+        {
+            "candidate": 2,
+            "votes_count": 4
+        }
+    ]
+}
+Candidates
+GET /api/candidates/: Retrieve all candidates.
+POST /api/candidates/: Add a new candidate.
+Voters
+GET /api/voters/: Retrieve all voters.
+POST /api/voters/: Register a new voter.
